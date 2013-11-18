@@ -1,0 +1,2 @@
+# sailsServer
+### a Sails application
