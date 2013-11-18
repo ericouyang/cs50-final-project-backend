@@ -1,5 +1,5 @@
 /**
- * Comment
+ * Vote
  *
  * @module      :: Model
  * @description :: A short summary of how this model works and what it represents.
@@ -7,7 +7,7 @@
  */
 
 module.exports = {
-    tableName: 'comments',
+    tableName: 'votes',
     attributes: {
         user_id: {
             type: 'STRING',
@@ -17,8 +17,8 @@ module.exports = {
             type: 'STRING',
             required: true
         },
-        content: {
-            type: 'TEXT',
+        weight: {
+            type: 'INTEGER',
             required: true
         },
     }

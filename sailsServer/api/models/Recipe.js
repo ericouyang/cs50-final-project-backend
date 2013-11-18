@@ -7,7 +7,7 @@
  */
 
 module.exports = {
-
+    tableName: 'recipes',
     attributes: {
         user_id: {
             type: 'STRING',
@@ -22,5 +22,4 @@ module.exports = {
         instructions: 'TEXT',
         ingredients:  'ARRAY'
     }
-
 };

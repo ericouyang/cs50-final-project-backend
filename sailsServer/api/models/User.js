@@ -7,13 +7,24 @@
  */
 
 module.exports = {
-
-  attributes: {
-  	
-  	/* e.g.
-  	nickname: 'string'
-  	*/
-    
-  }
+    tableName: 'users',
+    attributes: {
+        first_name: {
+            type: 'STRING',
+            required: true
+        },
+        last_name: {
+            type: 'STRING',
+            required: true
+        },
+        email: {
+            type: 'email',
+            required: true
+        },
+        password: {
+            type: 'STRING',
+            required: true
+        }
+    }
 
 };
