@@ -1,5 +1,5 @@
 /**
- * RecipeController
+ * AuthController
  *
  * @module      :: Controller
  * @description	:: A set of functions called `actions`.
@@ -15,30 +15,45 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
+// based on https://gist.github.com/theangryangel/5060446
+
+var passport = require('passport');
+
 module.exports = {
-  upvote: function(req, res) {
-    if (req.param('id'))
-    {
-      Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
-        if (err) return res.send(err, 500);
-        if (!recipe) return res.send("No recipe with that id exists!", 404);
-        
-        Vote.create({
-          userId: req.session.user.id,
-          itemId: recipe.id,
-          weight: 1
-        }).done(function(err, vote) {
-          if (err) return res.send(err, 500);
-          
-          res.json(vote);
-        });
-      });
-    }
-  },
-  
+    
+  login: function(req, res)
+	{
+		passport.authenticate('local', function(err, user, info)
+		{
+			if ((err) || (!user))
+			{
+				res.redirect('/login');
+				return;
+			}
+ 
+			req.logIn(user, function(err)
+			{
+				if (err)
+				{
+					res.view();
+					return;
+				}
+				
+				req.session.user = user;
+				res.json(user);
+				return;
+			});
+		})(req, res);
+	},
+
+  logout: function (req,res)
+	{
+		req.logout();
+	},
+
   /**
    * Overrides for the settings in `config/controllers.js`
-   * (specific to RecipeController)
+   * (specific to AuthController)
    */
   _config: {}
 

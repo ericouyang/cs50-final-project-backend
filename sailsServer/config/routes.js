@@ -36,6 +36,15 @@ module.exports.routes = {
     view: 'home/index'
   },
 
+  '/login': {
+    controller: 'auth',
+    action: 'login'
+  },
+  '/logout': {
+    controller: 'auth',
+    action: 'logout'
+  },
+  
   '/recipe/:id/upvote': {
     controller    : 'recipe',
     action        : 'upvote'
