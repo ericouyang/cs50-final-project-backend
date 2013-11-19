@@ -7,19 +7,25 @@
  */
 
 module.exports = {
-    tableName: 'recipes',
-    attributes: {
-        user_id: {
-            type: 'STRING',
-            required: true
-        },
-        name: {
-            type: 'STRING',
-            required: true
-        },
-        images: 'ARRAY',
-        tags:   'ARRAY',
-        instructions: 'TEXT',
-        ingredients:  'ARRAY'
+  tableName: 'recipes',
+  attributes: {
+    userId: {
+      type: 'STRING',
+      required: true
+    },
+    name: {
+      type: 'STRING',
+      required: true
+    },
+    images: 'ARRAY',
+    tags:   'ARRAY',
+    instructions: 'TEXT',
+    ingredients:  'ARRAY',
+    
+    getVotes: function() {
+      return Vote.find({
+        itemId: this.id
+      });
     }
+  }
 };

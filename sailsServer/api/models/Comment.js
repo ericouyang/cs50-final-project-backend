@@ -7,19 +7,19 @@
  */
 
 module.exports = {
-    tableName: 'comments',
-    attributes: {
-        user_id: {
-            type: 'STRING',
-            required: true
-        },
-        item_id: {
-            type: 'STRING',
-            required: true
-        },
-        content: {
-            type: 'TEXT',
-            required: true
-        },
-    }
+  tableName: 'comments',
+  attributes: {
+    userId: {
+      type: 'STRING',
+      required: true
+    },
+    itemId: {
+      type: 'STRING',
+      required: true
+    },
+    content: {
+      type: 'TEXT',
+      required: true
+    },
+  }
 };

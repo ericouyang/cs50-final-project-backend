@@ -16,10 +16,26 @@
  */
 
 module.exports = {
-    
+  upvote: function(req, res) {
+    if (req.param('id'))
+    {
+      Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
+        if (err) return res.send(err, 500);
+        if (!recipe) return res.send("No recipe with that id exists!", 404);
+        
+        Vote.create({
+          userId: 1,
+          itemId: recipe.id,
+          weight: 1
+        }).done(function(err, vote) {
+          if (err) return res.send(err, 500);
+          
+          res.json(vote);
+        });
+      });
+    }
+  },
   
-
-
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to RecipeController)
