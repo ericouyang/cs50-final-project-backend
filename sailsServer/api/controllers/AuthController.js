@@ -23,11 +23,27 @@ module.exports = {
     
   login: function(req, res)
 	{
+	  if (!(req.param('username') && req.param('password')))
+	  {
+	    res.json({
+			  error: "You must provide both a username and password"
+			});
+			return;
+	  }
 		passport.authenticate('local', function(err, user, info)
 		{
-			if ((err) || (!user))
+			if (err)
 			{
-				res.redirect('/login');
+				res.json({
+				  error: err
+				});
+				return;
+			}
+			else if (!user)
+			{
+			  res.json({
+				  error: "Invalid credentials"
+				});
 				return;
 			}
  
@@ -35,12 +51,17 @@ module.exports = {
 			{
 				if (err)
 				{
-					res.view();
+					res.json({
+				    error: err,
+				  });
 					return;
 				}
 				
 				req.session.user = user;
-				res.json(user);
+				res.json({
+				  loggedIn: true,
+				  user: user
+				});
 				return;
 			});
 		})(req, res);
