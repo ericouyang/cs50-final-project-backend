@@ -23,6 +23,12 @@ module.exports.policies = {
 		'*': true
 	},
 	
+	'user':
+	{
+	  'create': true,
+	  'find': true
+	},
+	
 	'recipe':
 	{
 	  'find': true,
