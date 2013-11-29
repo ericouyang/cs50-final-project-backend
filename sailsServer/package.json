@@ -12,7 +12,8 @@
         "sails-mongo": "0.9.5",
         "passport": "0.1.17",
         "passport-local": "0.1.6",
-        "bcrypt": "0.7.7"
+        "bcrypt": "0.7.7",
+        "gm": "1.13.3"
     },
     "scripts": {
         "start": "node app.js",

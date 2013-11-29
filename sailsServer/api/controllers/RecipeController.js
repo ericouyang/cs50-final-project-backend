@@ -36,6 +36,86 @@ module.exports = {
     }
   },
   
+  uploadImages: function(req, res) {
+    var gm = require('gm');
+    
+    if (req.files)
+    {
+      for (var name in req.files) {
+        // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
+        var timestamp = new Date().toISOString();
+        var newFileName = Math.floor((1 + Math.random()) * 0x10000).toString(16) + "_" + timestamp + ".png";
+        var newPath = "/home/jharvard/cs50-final-project-backend/sailsServer/assets/uploads/" + newFileName;
+        console.log(newPath);
+        gm(req.files[name].path)
+          .resize(1200)
+          .noProfile()
+          .write(newPath, function (err) {
+            if (err)
+            {
+                return res.send(err, 500);
+            }
+            
+            Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
+              if (err) return res.send(err, 500);
+              if (!recipe) return res.send("No recipe with that id exists!", 404);
+              
+              if (recipe.images === undefined)
+                recipe.images = [];
+              
+              recipe.images.push({
+                filename: newPath,
+                createdAt: timestamp
+              });
+              
+              recipe.save(function(err) {
+                if (err) return res.send(err, 500);
+                
+                return res.json(recipe);
+              });
+            });
+          });
+        
+        /*
+        fs.readFile(req.files[name].path, function (err, data) {
+          if (err)
+          {
+              return res.send(err, 500);
+          }
+          fs.writeFile(newPath, data, function (err) {
+            if (err)
+            {
+              return res.send(err, 500);
+            }
+            Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
+              if (err) return res.send(err, 500);
+              if (!recipe) return res.send("No recipe with that id exists!", 404);
+              
+              if (recipe.images === undefined)
+                recipe.images = [];
+              
+              recipe.images.push({
+                filename: newPath,
+                createdAt: new Date().toISOString()
+              });
+              
+              recipe.save(function(err) {
+                if (err) return res.send(err, 500);
+                
+                res.json(recipe);
+              });
+            });
+          });
+        });
+        */
+      }
+    }
+    else
+    {
+      res.json({"error": "No files uploaded"});
+    }
+  },
+  
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to RecipeController)

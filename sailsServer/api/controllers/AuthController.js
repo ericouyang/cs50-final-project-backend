@@ -21,7 +21,7 @@ var passport = require('passport');
 
 module.exports = {
     
-  login: function(req, res)
+  authorize: function(req, res)
 	{
 	  if (!(req.param('username') && req.param('password')))
 	  {
@@ -67,7 +67,7 @@ module.exports = {
 		})(req, res);
 	},
 
-  logout: function (req,res)
+  deauthorize: function (req, res)
 	{
 		req.logout();
 	},

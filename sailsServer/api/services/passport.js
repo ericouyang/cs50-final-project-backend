@@ -1,4 +1,6 @@
 // based on http://www.geektantra.com/2013/08/implement-passport-js-authentication-with-sails-js/
+
+// see also http://passportjs.org/guide/configure/
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt');

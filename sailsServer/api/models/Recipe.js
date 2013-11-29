@@ -26,6 +26,13 @@ module.exports = {
       return Vote.find({
         itemId: this.id
       });
+    },
+    
+    toJSON: function() {
+      var obj = this.toObject();
+      obj.createdAt = new Date(obj.createdAt).getTime();
+      obj.updatedAt = new Date(obj.updatedAt).getTime();
+      return obj;
     }
   }
 };

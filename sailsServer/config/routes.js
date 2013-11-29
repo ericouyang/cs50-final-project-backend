@@ -36,18 +36,24 @@ module.exports.routes = {
     view: 'home/index'
   },
 
-  '/login': {
+  '/authorize': {
     controller: 'auth',
-    action: 'login'
+    action: 'authorize'
   },
-  '/logout': {
+  
+  '/deauthorize': {
     controller: 'auth',
-    action: 'logout'
+    action: 'deauthorize'
   },
   
   '/recipe/:id/upvote': {
     controller    : 'recipe',
     action        : 'upvote'
+  },
+  
+  '/recipe/:id/uploadImages': {
+    controller    : 'recipe',
+    action        : 'uploadImages'
   }
   /*
   // But what if you want your home page to display
