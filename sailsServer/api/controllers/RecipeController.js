@@ -44,7 +44,7 @@ module.exports = {
       for (var name in req.files) {
         // http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript
         var timestamp = new Date().toISOString();
-        var newFileName = Math.floor((1 + Math.random()) * 0x10000).toString(16) + "_" + timestamp + ".bmp";
+        var newFileName = Math.floor((1 + Math.random()) * 0x10000).toString(16) + "_" + timestamp + ".png";
         var assetsRoot = "/srv/node/cs50_final_project/cs50-final-project-backend/sailsServer/assets/";
         var newPath = "uploads/images/" + newFileName;
         gm(req.files[name].path)
