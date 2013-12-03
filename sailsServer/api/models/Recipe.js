@@ -18,6 +18,7 @@ module.exports = {
       required: true
     },
     images: 'ARRAY',
+    comments: 'ARRAY',
     tags:   'ARRAY',
     instructions: 'TEXT',
     ingredients:  'ARRAY',

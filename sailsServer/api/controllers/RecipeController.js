@@ -116,6 +116,35 @@ module.exports = {
     }
   },
   
+  addComment: function(req, res) {
+    if (req.param('id') && req.param('content'))
+    {
+      Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
+        if (err) return res.send(err, 500);
+        if (!recipe) return res.send("No recipe with that id exists!", 404);
+        
+        if (recipe.comments === undefined)
+            recipe.comments = [];
+          
+          recipe.comments.push({
+            userId: req.user.id,
+            content: req.param('content'),
+            createdAt: new Date().toISOString()
+          });
+          
+          recipe.save(function(err) {
+            if (err) return res.send(err, 500);
+            
+            res.json(recipe);
+          });
+      });
+    }
+    else
+    {
+        res.json({"error": "You must provide content for the comment"});
+    }
+  },
+  
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to RecipeController)

@@ -51,6 +51,11 @@ module.exports.routes = {
     action        : 'upvote'
   },
   
+  '/recipe/:id/addComment': {
+    controller    : 'recipe',
+    action        : 'addComment'
+  },
+  
   '/recipe/:id/uploadImages': {
     controller    : 'recipe',
     action        : 'uploadImages'
