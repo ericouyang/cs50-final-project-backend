@@ -6,7 +6,7 @@ module.exports = {
     customMiddleware: function(app) {
       console.log('Load Express middleware for passport authentication');
       app.use(passport.initialize());
-      app.use(passport.session());
+      //app.use(passport.session());
     }
   }
 };

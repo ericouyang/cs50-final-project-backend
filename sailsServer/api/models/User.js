@@ -8,13 +8,14 @@
 
 // see http://www.geektantra.com/2013/08/implement-passport-js-authentication-with-sails-js/
 // see https://gist.github.com/theangryangel/5060446
+
 var bcrypt = require('bcrypt');
 
 module.exports = {
   tableName: 'users',
   
   attributes: {
-   username: {
+    username: {
       type: 'string',
       required: true,
       unique: true
@@ -38,6 +39,7 @@ module.exports = {
     toJSON: function() {
       var obj = this.toObject();
       delete obj.password;
+      delete obj.token;
       return obj;
     }
   },

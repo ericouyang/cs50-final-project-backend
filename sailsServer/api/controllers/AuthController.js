@@ -18,9 +18,9 @@
 // based on https://gist.github.com/theangryangel/5060446
 
 var passport = require('passport');
+var crypto = require('crypto');
 
 module.exports = {
-    
   authorize: function(req, res)
 	{
 	  if (!(req.param('username') && req.param('password')))
@@ -30,6 +30,57 @@ module.exports = {
 			});
 			return;
 	  }
+	  
+	  passport.authenticate('local', { session: false }, function(err, user, info)
+		{
+			if (err)
+			{
+				res.json({
+				  error: err
+				});
+				return;
+			}
+			else if (!user)
+			{
+			  res.json({
+				  error: "Invalid credentials"
+				});
+				return;
+			}
+ 
+			req.logIn(user, function(err)
+			{
+				if (err)
+				{
+					res.json({
+				    error: err,
+				  });
+					return;
+				}
+				
+				// based off of http://stackoverflow.com/questions/8855687/secure-random-token-in-node-js
+        var token = crypto.randomBytes(20).toString('hex');
+        
+        User.update({
+          username: user.username
+        },{
+          token: token
+        }, function(err, users) {
+          // Error handling
+          if (err) {
+            return res.json({
+				      error: "Failed to authorize"
+				    });
+          } else {
+            return res.json({
+				      access_token: token
+				    });
+          }
+        });
+			});
+		})(req, res);
+		
+	  /*
 		passport.authenticate('local', function(err, user, info)
 		{
 			if (err)
@@ -65,6 +116,7 @@ module.exports = {
 				return;
 			});
 		})(req, res);
+		*/
 	},
 
   deauthorize: function (req, res)
