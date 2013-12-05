@@ -20,7 +20,7 @@ module.exports = {
     images: 'ARRAY',
     comments: 'ARRAY',
     tags:   'ARRAY',
-    instructions: 'TEXT',
+    instructions: 'ARRAY',
     ingredients:  'ARRAY',
     
     getVotes: function() {
