@@ -28,12 +28,33 @@ module.exports = {
         itemId: this.id
       });
     },
-    
+  
     toJSON: function() {
       var obj = this.toObject();
       obj.createdAt = new Date(obj.createdAt).getTime();
       obj.updatedAt = new Date(obj.updatedAt).getTime();
+      
+      if ("comments" in obj)
+      {
+        for (var i = 0; i < obj.comments.length; i++)
+        {
+            obj.comments[i].createdAt = new Date(obj.comments[i].createdAt).getTime();
+        }
+      }
+      
       return obj;
     }
-  }
+  },
+  
+  beforeCreate: function(values, next) {
+      if ("access_token" in values)
+        delete values.access_token;
+      if (!("comments" in values))
+        values.comments = [];
+      if (!("instructions" in values))
+        values.instructions = [];
+      if (!("ingredients" in values))
+        values.ingredients = [];
+      next();
+    },
 };
