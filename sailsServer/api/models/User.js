@@ -10,6 +10,7 @@
 // see https://gist.github.com/theangryangel/5060446
 
 var bcrypt = require('bcrypt');
+var crypto = require('crypto');
 
 module.exports = {
   tableName: 'users',
@@ -55,6 +56,7 @@ module.exports = {
         }
         else {
           user.password = hash;
+          user.access_token = crypto.randomBytes(20).toString('hex');
           cb(null, user);
         }
       });
