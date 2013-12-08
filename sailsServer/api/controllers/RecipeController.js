@@ -143,39 +143,6 @@ module.exports = {
               });
             });
           });
-        
-        /*
-        fs.readFile(req.files[name].path, function (err, data) {
-          if (err)
-          {
-              return res.send(err, 500);
-          }
-          fs.writeFile(newPath, data, function (err) {
-            if (err)
-            {
-              return res.send(err, 500);
-            }
-            Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
-              if (err) return res.send(err, 500);
-              if (!recipe) return res.send("No recipe with that id exists!", 404);
-              
-              if (recipe.images === undefined)
-                recipe.images = [];
-              
-              recipe.images.push({
-                filename: newPath,
-                createdAt: new Date().toISOString()
-              });
-              
-              recipe.save(function(err) {
-                if (err) return res.send(err, 500);
-                
-                res.json(recipe);
-              });
-            });
-          });
-        });
-        */
       }
     }
     else

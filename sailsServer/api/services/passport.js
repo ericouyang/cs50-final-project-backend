@@ -62,7 +62,8 @@ passport.use(new BearerStrategy(
 // with a user object.
 passport.use(new LocalStrategy(
   function (username, password, done) {
-    // asynchronous verification, for effect...
+  
+    // asynchronous verification
     process.nextTick(function () {
       // Find the user by username. If there is no user with the given
       // username, or the password is not correct, set the user to `false` to

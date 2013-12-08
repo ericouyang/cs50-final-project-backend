@@ -58,7 +58,7 @@ module.exports = {
 					return;
 				}
 				
-				// based off of http://stackoverflow.com/questions/8855687/secure-random-token-in-node-js
+		// based off of http://stackoverflow.com/questions/8855687/secure-random-token-in-node-js
         var token = crypto.randomBytes(20).toString('hex');
         
         User.update({
@@ -79,44 +79,6 @@ module.exports = {
         });
 			});
 		})(req, res);
-		
-	  /*
-		passport.authenticate('local', function(err, user, info)
-		{
-			if (err)
-			{
-				res.json({
-				  error: err
-				});
-				return;
-			}
-			else if (!user)
-			{
-			  res.json({
-				  error: "Invalid credentials"
-				});
-				return;
-			}
- 
-			req.logIn(user, function(err)
-			{
-				if (err)
-				{
-					res.json({
-				    error: err,
-				  });
-					return;
-				}
-				
-				req.session.user = user;
-				res.json({
-				  loggedIn: true,
-				  user: user
-				});
-				return;
-			});
-		})(req, res);
-		*/
 	},
 
   deauthorize: function (req, res)
