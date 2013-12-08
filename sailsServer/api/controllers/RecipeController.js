@@ -16,7 +16,7 @@
  */
 
 module.exports = {
-  vote: function(req, res) {
+  like: function(req, res) {
     if (req.param('id'))
     {
       Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
@@ -68,7 +68,7 @@ module.exports = {
     }
   },
   
-  unvote: function(req, res) {
+  unlike: function(req, res) {
     if (req.param('id'))
     {
       Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
@@ -212,7 +212,7 @@ module.exports = {
         recipe.save(function(err) {
           if (err) return res.send(false, 500);
           
-          res.json(comment);
+          res.json(recipe.comments);
         });
       });
     }

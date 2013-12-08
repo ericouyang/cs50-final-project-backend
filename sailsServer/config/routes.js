@@ -46,14 +46,14 @@ module.exports.routes = {
     action: 'deauthorize'
   },
   
-  'post /recipe/:id/vote': {
+  'post /recipe/:id/like': {
     controller    : 'recipe',
-    action        : 'vote'
+    action        : 'like'
   },
   
-  'delete /recipe/:id/vote': {
+  'delete /recipe/:id/like': {
     controller    : 'recipe',
-    action        : 'unvote'
+    action        : 'unlike'
   },
   
   'post /recipe/:id/addComment': {
