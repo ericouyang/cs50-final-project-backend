@@ -112,7 +112,7 @@ module.exports = {
         var assetsRoot = "/srv/node/cs50_final_project/cs50-final-project-backend/sailsServer/assets/";
         var newPath = "uploads/images/" + newFileName;
         gm(req.files[name].path)
-          .resize(1200)
+          .resize(2000)
           .noProfile()
           .write(assetsRoot + newPath, function (err) {
             if (err)
