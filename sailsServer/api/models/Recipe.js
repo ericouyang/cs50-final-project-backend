@@ -22,6 +22,7 @@ module.exports = {
     tags:   'ARRAY',
     instructions: 'ARRAY',
     ingredients:  'ARRAY',
+    votes: 'INTEGER',
     
     getVotes: function() {
       return Vote.find({
@@ -55,6 +56,8 @@ module.exports = {
         values.instructions = [];
       if (!("ingredients" in values))
         values.ingredients = [];
+      if (!("votes" in values))
+        values.votes = 0;
       next();
     },
 };

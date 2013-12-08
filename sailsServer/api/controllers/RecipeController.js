@@ -16,21 +16,85 @@
  */
 
 module.exports = {
-  upvote: function(req, res) {
+  vote: function(req, res) {
     if (req.param('id'))
     {
       Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
         if (err) return res.send(err, 500);
-        if (!recipe) return res.send("No recipe with that id exists!", 404);
+        if (!recipe) return res.send({
+          error: {
+            message: "No recipe with that id"
+          }
+        }, 404);
         
-        Vote.create({
-          userId: req.session.user.id,
-          itemId: recipe.id,
-          weight: 1
+        Vote.findOne({
+          id: req.param('id'),
+          userId: req.user.id
         }).done(function(err, vote) {
-          if (err) return res.send(err, 500);
+          if (vote === undefined) 
+          {
+            console.log(err);
+            Vote.create({
+              userId: req.user.id,
+              itemId: recipe.id,
+              weight: 1
+            }).done(function(err, vote) {
+              if (err) return res.send(err, 500);
+              
+              if (recipe.votes === undefined)
+                recipe.votes = 1;
+              else
+                recipe.votes = recipe.votes + 1;
+              
+              recipe.save(function(err) {
+                if (err) return res.send(err, 500);
+                
+                res.send(true);
+              });
+              
+            });
+          } 
+          else 
+          {
+            return res.send({
+              error: {
+                message: "You've already liked this recipe"
+              }
+            });
+          }
+        });
+        
+      });
+    }
+  },
+  
+  unvote: function(req, res) {
+    if (req.param('id'))
+    {
+      Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
+        if (err) return res.send(err, 500);
+        if (!recipe) return res.send({
+          error: {
+            message: "No recipe with that id"
+          }
+        }, 404);
+        
+       Vote.destroy({
+          id: req.param('id'),
+          userId: req.user.id
+        }).done(function(err) {
+
+          if (err)
+            return res.send(err, 500);
+
+          recipe.votes = recipe.votes - 1;
           
-          res.json(vote);
+          
+          recipe.save(function(err) {
+            if (err) return res.send(err, 500);
+            return res.send(true);
+          });
+          
         });
       });
     }
@@ -53,12 +117,16 @@ module.exports = {
           .write(assetsRoot + newPath, function (err) {
             if (err)
             {
-                return res.send(err, 500);
+                return res.send(false, 500);
             }
             
             Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
               if (err) return res.send(err, 500);
-              if (!recipe) return res.send("No recipe with that id exists!", 404);
+              if (!recipe) return res.send({
+                error: {
+                  message: "No recipe with that id"
+                }
+              }, 404);
               
               if (recipe.images === undefined)
                 recipe.images = [];
@@ -69,7 +137,7 @@ module.exports = {
               });
               
               recipe.save(function(err) {
-                if (err) return res.send(err, 500);
+                if (err) return res.send(false, 500);
                 
                 return res.json(recipe);
               });
@@ -120,23 +188,32 @@ module.exports = {
     if (req.param('id') && req.param('content'))
     {
       Recipe.findOne({id: req.param('id')}).exec(function(err, recipe){
-        if (err) return res.send(err, 500);
-        if (!recipe) return res.send("No recipe with that id exists!", 404);
+        if (err) 
+          return res.send(false, 500);
+        if (!recipe) 
+          return res.send({
+            error: {
+              message: "No recipe with that id"
+            }
+          }, 404);
         
         if (recipe.comments === undefined)
             recipe.comments = [];
           
-          recipe.comments.push({
-            userId: req.user.id,
-            content: req.param('content'),
-            createdAt: new Date().toISOString()
-          });
+        var comment = {
+          userId: req.user.id,
+          userName: req.user.getFullName(),
+          content: req.param('content'),
+          createdAt: new Date().toISOString()
+        };
+        
+        recipe.comments.push(comment);
+        
+        recipe.save(function(err) {
+          if (err) return res.send(false, 500);
           
-          recipe.save(function(err) {
-            if (err) return res.send(err, 500);
-            
-            res.json(recipe);
-          });
+          res.json(comment);
+        });
       });
     }
     else

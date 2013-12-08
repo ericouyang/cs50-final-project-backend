@@ -37,10 +37,16 @@ module.exports = {
       type: 'STRING',
       required: true
     },
+    getFullName: function()
+    {
+        if (this.firstName !== undefined && this.lastName !== undefined)
+            return this.firstName + ' ' + this.lastName;
+        return '';
+    },
     toJSON: function() {
       var obj = this.toObject();
       delete obj.password;
-      delete obj.token;
+      delete obj.access_token;
       return obj;
     }
   },

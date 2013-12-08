@@ -36,27 +36,32 @@ module.exports.routes = {
     view: 'home/index'
   },
 
-  '/authorize': {
+  'post /authorize': {
     controller: 'auth',
     action: 'authorize'
   },
   
-  '/deauthorize': {
+  'post /deauthorize': {
     controller: 'auth',
     action: 'deauthorize'
   },
   
-  '/recipe/:id/upvote': {
+  'post /recipe/:id/vote': {
     controller    : 'recipe',
-    action        : 'upvote'
+    action        : 'vote'
   },
   
-  '/recipe/:id/addComment': {
+  'delete /recipe/:id/vote': {
+    controller    : 'recipe',
+    action        : 'unvote'
+  },
+  
+  'post /recipe/:id/addComment': {
     controller    : 'recipe',
     action        : 'addComment'
   },
   
-  '/recipe/:id/uploadImages': {
+  'post /recipe/:id/uploadImages': {
     controller    : 'recipe',
     action        : 'uploadImages'
   }

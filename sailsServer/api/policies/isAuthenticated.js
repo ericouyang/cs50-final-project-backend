@@ -17,9 +17,14 @@ module.exports = function(req, res, next) {
       {
           if ((err) || (!user))
           {
-              res.redirect('/');
+              res.json({
+                error: {
+                  message: "There was an issue with your access token"
+                }
+              }, 403);
               return;
           }
+
           req.user = user;
           return next();
       }
