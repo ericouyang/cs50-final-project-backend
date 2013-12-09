@@ -1,37 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--
-        For demonstration purposes, the `title` is dynamically set here based on
-        your `sails.config.appName` to show that you can inject data into layouts
-        exactly the same way as with your other view templates.
-    -->
     <title><%- title %></title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-    <!--
+    <link href='http://fonts.googleapis.com/css?family=Nunito' rel='stylesheet' type='text/css'>
 
-      Stylesheets
-      ========================
-
-      You can link any CSS, LESS, or image files in your `assets` directory
-      as you would normally: using <link/> tags.
-      
-    -->
-
-    <!--
-
-      Support for LESS included by default
-      ================================================
-
-      LESS files are automatically compiled when they change using the Gruntfile
-      located in the top-level of this Sails app.  If you run into issues with styles
-      not reloading, check the Sails log output in your console for LESS compilation errors.
-      If necessary, shut down and then lift your app again.
-      
-    -->
+    <link href="/styles/bootstrap.min.css" rel="stylesheet">
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/linker/styles/styles.css">
+    <!--STYLES END-->
 
   </head>
 
@@ -58,9 +39,10 @@
     <!-- listen on socket.io for incoming messages -->
     <script type="text/javascript" src="/js/app.js"></script>
 
-    <!-- Your scripts here? -->
-    <!-- Your scripts here? -->
-    <!-- Your scripts here? -->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/js/bootstrap.min.js"></script>
 
 
     <!--
@@ -72,23 +54,6 @@
       but if you'd like to mix those features in, it is straightforward to
       `npm install` the relevant grunt community modules and modify your Gruntfile
       to use them.
-
-    -->
-
-
-
-    <!--
-
-      Another way: The Asset Linker
-      ========================
-
-      Sails supports a Grunt-based asset linker, to automatically inject 
-      <link> and <script> tags, as well any client-side templates you're using
-      into your HTML layouts and views, respecting dependencies.
-
-      You created this Sails app with the asset linker disabled.
-      If you change your mind, check out the docs on the subject:
-      http://sailsjs.org/#!documentation/asset-management
 
     -->
 

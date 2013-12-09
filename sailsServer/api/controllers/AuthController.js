@@ -82,10 +82,30 @@ module.exports = {
 	},
 
   deauthorize: function (req, res)
-	{
-		req.logout();
-	},
-
+  {
+    req.logout();
+  },
+  
+  register_result: function(req, res)
+  {
+    User.create({
+      firstName: req.param("first_name"),
+      lastName: req.param("last_name"),
+      username: req.param("username"),
+      password: req.param("password")
+    }).done(function(err, user) {
+      if (err) {
+        return res.view({
+            message: "There was an error creating your account. Please try again."
+        });
+      } else {
+        return res.view({
+            message: "Awesome!You're now signed up for nom!"
+        });
+      }
+    });
+  },
+  
   /**
    * Overrides for the settings in `config/controllers.js`
    * (specific to AuthController)

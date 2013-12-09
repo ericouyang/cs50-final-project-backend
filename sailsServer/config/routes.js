@@ -35,6 +35,10 @@ module.exports.routes = {
   '/': {
     view: 'home/index'
   },
+  
+  '/register': {
+    view: 'auth/register'
+  },
 
   'post /authorize': {
     controller: 'auth',
