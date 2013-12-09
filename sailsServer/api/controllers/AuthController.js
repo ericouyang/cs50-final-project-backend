@@ -96,11 +96,11 @@ module.exports = {
     }).done(function(err, user) {
       if (err) {
         return res.view({
-            message: "There was an error creating your account. Please try again."
+          message: "There was an error creating your account. Please try again."
         });
       } else {
         return res.view({
-            message: "Awesome!You're now signed up for nom!"
+          message: "Awesome! You're now signed up for nom!"
         });
       }
     });
